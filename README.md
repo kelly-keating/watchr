@@ -1,4 +1,4 @@
-# RSS Feeder
+# Watchr
 
 After cloning this repo:
 
