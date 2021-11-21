@@ -1,4 +1,4 @@
-import { SAVE_AUTH, CLEAR_AUTH } from '../actions/auth' 
+import { SAVE_AUTH, CLEAR_AUTH } from '../actions' 
 
 function reducer (state = null, action) {
   switch (action.type) {

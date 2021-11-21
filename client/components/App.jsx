@@ -8,9 +8,8 @@ import SignIn from './SignIn'
 import MovieView from './MovieView'
 
 import auth from '../firebase/auth'
-import { saveLogin, removeLogin } from '../actions/auth'
-import { saveAllMovies } from '../actions'
 import { startDbListening } from '../firebase/db'
+import { saveAllMovies, saveLogin, removeLogin } from '../actions'
 
 function App () {
   const dispatch = useDispatch()
