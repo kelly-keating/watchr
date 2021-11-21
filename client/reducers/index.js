@@ -1,7 +1,9 @@
 import { combineReducers } from 'redux'
 
-// import example from './example'
+import auth from './auth'
+import movies from './movies'
 
 export default combineReducers({
-  // example
+  auth,
+  movies
 })

@@ -9,6 +9,18 @@
 @import './layouts/bubbles.scss';
 
 
+.results-img {
+  max-height: 100px;
+}
+
+.details-container {
+  display: flex;
+}
+
+.details-image {
+  max-width: 20vw;
+}
+
 // Assmt List
 // ------------
 .assmt-row {

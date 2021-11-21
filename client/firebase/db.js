@@ -5,16 +5,23 @@ import { getUserId } from './auth'
 const db = getDatabase()
 export default db
 
-export function startListening (feedFn) {
-  const userId = getUserId()
-  const feedsRef = ref(db, `${userId}/feeds`)
+// READ
 
-  onValue(feedsRef, (snapshot) => feedFn(snapshot.val()))
+export function startDbListening (fn) {
+  const userId = getUserId()
+  const userRef = ref(db, `${userId}`)
+
+  onValue(userRef, (snapshot) => fn(snapshot.val()))
 }
 
-// FEED
+// UPDATE
 
-export function addFeed (id, data) {
-  const feedRef = ref(db, `${getUserId()}/feeds/${id}`)
-  return set(feedRef, data)
+export function saveMovie (id, data) {
+  const location = ref(db, `${getUserId()}/${id}`)
+  return set(location, data)
+}
+
+export function setAsWatched (id) {
+  const location = ref(db, `${getUserId()}/${id}/watched`)
+  return set(location, true)
 }

@@ -1,7 +1,8 @@
-export const TEMPLATE = 'example-string'
+export const SAVE_MOVIES = 'here-they-are'
 
-export function actionTemplate () {
+export function saveAllMovies (theObj) {
   return {
-    type: TEMPLATE
+    type: SAVE_MOVIES,
+    theObj
   }
 }
