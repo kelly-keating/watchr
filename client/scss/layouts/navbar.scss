@@ -1,0 +1,39 @@
+@import '../variables.scss';
+
+.navbar {
+  // position: fixed;
+  top: 0;
+  left: 0;
+  // display: flex;
+  background-color: $brand-dark;
+  padding: 0 2rem;
+
+  a {
+    text-decoration: none;
+    color: $text-light;
+  }
+}
+
+.logo-title {
+  font-size: 2.4rem;
+  margin: 0;
+  padding: 1rem .8rem;
+}
+
+.navbar-menu {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.navbar-item {
+  display: inline-block;
+  padding: .8rem;
+}
+
+.navbar-logo {
+  max-width: 50px;
+  position: absolute;
+  left: calc(50vw - 25px);
+}

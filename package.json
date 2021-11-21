@@ -1,0 +1,60 @@
+{
+  "name": "watchr",
+  "version": "1.0.0",
+  "description": "Keeps track of things I want to watch",
+  "author": "Kelly Keating",
+  "scripts": {
+    "start": "node server",
+    "build": "npm i && node server && webpack",
+    "dev": "webpack --watch & nodemon server",
+    "test": "jest --watchAll",
+    "lint": "eslint --ext .js,.jsx ."
+  },
+  "babel": {
+    "plugins": [
+      "@babel/plugin-proposal-class-properties",
+      "@babel/plugin-proposal-object-rest-spread"
+    ],
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ]
+  },
+  "eslintConfig": {
+    "extends": "eda",
+    "ignorePatterns": [
+      "bundle.js"
+    ]
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.6",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.11.0",
+    "@babel/preset-env": "^7.11.5",
+    "@babel/preset-react": "^7.10.4",
+    "babel-loader": "^8.1.0",
+    "css-loader": "^6.5.1",
+    "dotenv-webpack": "^7.0.3",
+    "eslint": "^8.2.0",
+    "eslint-config-eda": "^0.1.4",
+    "firebase": "^9.0.0-beta.1",
+    "jest": "^27.3.1",
+    "mini-css-extract-plugin": "^2.4.5",
+    "nodemon": "^2.0.4",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-redux": "^7.2.1",
+    "react-router-dom": "^6.0.2",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
+    "sass": "^1.32.4",
+    "sass-loader": "^12.3.0",
+    "style-loader": "^3.3.1",
+    "superagent": "^6.1.0",
+    "webpack": "^5.64.2",
+    "webpack-cli": "^4.9.1"
+  }
+}
