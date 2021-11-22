@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { onAuthStateChanged } from "firebase/auth"
 
@@ -13,6 +13,7 @@ import { saveAllMovies, saveLogin, removeLogin } from '../actions'
 
 function App () {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   useEffect(() => {
     onAuthStateChanged(auth, user => {
@@ -27,7 +28,7 @@ function App () {
 
   return (
     <div className="container" >
-      <h1>Movies</h1>
+      <h1 onClick={() => navigate('/')}>Movies</h1>
       <SignIn />
       <Routes>
         <Route path= '/' element={<Home />}/>

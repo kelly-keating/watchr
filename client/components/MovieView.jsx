@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 
 import { getDeets } from '../api/imdb'
 
 function MovieView () {
   const { id } = useParams()
+  const navigate = useNavigate()
+
   const [details, setDetails] = useState(null)
 
   useEffect(() => {
@@ -14,10 +16,11 @@ function MovieView () {
 
   return (
     <>
+      <button onClick={() => navigate('/')}>Home</button>
       <h3>{details?.title}</h3>
       <div className='details-container'>
         <img className='details-image' src={details?.image}/>
-        <div>
+        <div className='details-deets'>
           <p>{details?.fullTitle}</p>
           <p>{details?.tagline}</p>
           <p>{details?.stars}</p>
@@ -25,12 +28,15 @@ function MovieView () {
         </div>
       </div>
       <div className='similars-container'>
-        {details?.similars.map(title => (
-          <>
-            <h3>{title?.title}</h3>
-            <img className='results-img' src={title?.image}/>
-          </>
-        ))}
+        <h3>Similar Titles</h3>
+        <div className='similars-row'>
+          {details?.similars.map(title => (
+            <div className='similars-tile'>
+              <img className='results-img' src={title?.image}/>
+              <p>{title?.title}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </>
   )
