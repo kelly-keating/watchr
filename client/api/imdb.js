@@ -6,17 +6,35 @@ const API_KEY = process.env.IMDB_API_KEY
 export function searchForMovie (searchTerm) {
   return request
     .get(`${baseUrl}/SearchMovie/${API_KEY}/${searchTerm}`)
-    .then(res => res.body.results)
+    .then(res => {
+      if (res.body.errorMessage) {
+        throw Error(res.body.errorMessage)
+      } else {
+        return res.body.results
+      }
+    })
 }
 
 export function searchForSeries (searchTerm) {
   return request
     .get(`${baseUrl}/SearchSeries/${API_KEY}/${searchTerm}`)
-    .then(res => res.body.results)
+    .then(res => {
+      if (res.body.errorMessage) {
+        throw Error(res.body.errorMessage)
+      } else {
+        return res.body.results
+      }
+    })
 }
 
 export function getDeets (id) {
   return request
     .get(`${baseUrl}/Title/${API_KEY}/${id}`)
-    .then(res => res.body)
+    .then(res => {
+      if (res.body.errorMessage) {
+        throw Error(res.body.errorMessage)
+      } else {
+        return res.body
+      }
+    })
 }

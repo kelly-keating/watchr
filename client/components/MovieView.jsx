@@ -30,8 +30,8 @@ function MovieView () {
       <div className='similars-container'>
         <h3>Similar Titles</h3>
         <div className='similars-row'>
-          {details?.similars.map(title => (
-            <div className='similars-tile'>
+          {details?.similars?.map(title => (
+            <div key={title.id} className='similars-tile'>
               <img className='results-img' src={title?.image}/>
               <p>{title?.title}</p>
             </div>

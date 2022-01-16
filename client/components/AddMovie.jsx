@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import { searchForMovie, searchForSeries } from '../api/imdb'
+import { getDeets, searchForMovie, searchForSeries } from '../api/imdb'
 import { saveMovie } from '../firebase/db'
 
 function AddMovie () {
@@ -22,25 +22,32 @@ function AddMovie () {
     evt.preventDefault()
     const search = media === 'movie' ? searchForMovie : searchForSeries
     search(searchTerm)
-      .then(results => {
-        setResults(results)
-      })
+      .then(results => setResults(results))
   }
 
   const save = (movie) => {
     const { id, image, title } = movie 
 
-    const data = {
-      id, image, title,
-      type: media,
-      watched: false
-    }
-    saveMovie(id, data)
+    getDeets(id)
+      .then((results) => {
+        const data = {
+          id, image, title,
+          type: media,
+          released: results.releaseDate || results.year,
+          runtime: results.runtimeMins || null,
+          genres: results.genres,
+          tagline: results.tagline,
+          watched: false
+        }
+        saveMovie(id, data)
+      })
   }
 
   const renderList = () => {
+    const shortList = searchResults?.length >= 3 ? [searchResults[0], searchResults[1]] : searchResults
+
     return <div>
-      {searchResults.map(movie => <div key={movie.id}>
+      {shortList.map(movie => <div key={movie.id}>
         <img className='results-img' src={movie.image} />
         <p>{movie.title} {movie.description}<button onClick={() => save(movie)}>Add</button></p>
       </div>)}

@@ -25,3 +25,8 @@ export function setAsWatched (id) {
   const location = ref(db, `${getUserId()}/${id}/watched`)
   return set(location, true)
 }
+
+export function deleteRecord (id) {
+  const location = ref(db, `${getUserId()}/${id}`)
+  return remove(location)
+}

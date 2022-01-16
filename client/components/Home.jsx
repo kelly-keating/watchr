@@ -1,46 +1,42 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
 
+import MovieTile from './MovieTile'
 import AddMovie from './AddMovie'
 
-import { setAsWatched } from '../firebase/db'
-
 function Home () {
-  const navigate = useNavigate()
-  const movies = useSelector(redux => Object.values(redux.movies))
+  let movies = useSelector(redux => Object.values(redux.movies))
+  const [sortBy, setSortBy] = useState('a-z')
 
+  const sortingFuncs = {
+    new: (x, y) => x.released < y.released ? 1 : -1,
+    old: (x, y) => x.released < y.released ? -1 : 1,
+    'a-z': (x, y) => x.title.toLowerCase() < y.title.toLowerCase() ? -1 : 1,
+    'z-a': (x, y) => x.title.toLowerCase() < y.title.toLowerCase() ? 1 : -1,
+  }
+
+  movies = movies.sort(sortingFuncs[sortBy])
   const toWatch = movies.filter(movie => !movie.watched)
   const watched = movies.filter(movie => movie.watched)
-
-  const clickHandler = (id) => {
-    setAsWatched(id)
-  }
-
-  const goTo = (id) => {
-    navigate('/details/' + id)
-  }
 
   return (
     <>
       <AddMovie/>
+      <p>Order:</p>
+      <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+        <option value='new'>Newest first</option>
+        <option value='old'>Oldest first</option>
+        <option value='a-z'>A-Z</option>
+        <option value='z-a'>Z-A</option>
+      </select>
       <p>To watch:</p>
-      <ul>
-        {toWatch.map(movie => (
-          <li key={movie.id}>
-            {movie.title}
-            <button onClick={() => goTo(movie.id)}>Details</button>
-            <button onClick={() => clickHandler(movie.id)}>Watched :)</button>
-          </li>
-        ))}
-      </ul>
+      <div className='movieGrid-container'>
+        {toWatch.map(movie => <MovieTile key={movie.id} movie={movie} />)}
+      </div>
       <p>Watched:</p>
-      <ul>
-        {watched.map(movie => <li key={movie.id}>
-          {movie.title}
-          <button onClick={() => goTo(movie.id)}>Details</button>
-        </li>)}
-      </ul>
+      <div className='movieGrid-container'>
+        {watched.map(movie => <MovieTile key={movie.id} movie={movie} />)}
+      </div>
     </>
   )
 }
