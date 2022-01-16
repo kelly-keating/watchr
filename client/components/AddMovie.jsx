@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
 
 import { getDeets, searchForMovie, searchForSeries } from '../api/imdb'
 import { saveMovie } from '../firebase/db'
 
 function AddMovie () {
+  const savedMovies = useSelector(redux => redux.movies)
 
   const [formIsVisible, setFormVisible] = useState(false)
   const [media, setMedia] = useState('movie')
@@ -49,7 +51,10 @@ function AddMovie () {
     return <div>
       {shortList.map(movie => <div key={movie.id}>
         <img className='results-img' src={movie.image} />
-        <p>{movie.title} {movie.description}<button onClick={() => save(movie)}>Add</button></p>
+        <p>
+          {movie.title} {movie.description}
+          {savedMovies[movie.id] ? <button disabled>Already added</button> : <button onClick={() => save(movie)}>Add</button>}
+        </p>
       </div>)}
     </div>
   }
